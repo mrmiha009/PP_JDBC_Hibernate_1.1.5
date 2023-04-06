@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 
-
 import javax.persistence.Query;
 import java.util.List;
 
@@ -89,10 +88,10 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             users = session.createSQLQuery("SELECT * FROM users").addEntity(User.class).list();
         } catch (Exception e) {
-        if (transaction != null) {
-            transaction.rollback();
-        }
-        e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
         return users;
     }
